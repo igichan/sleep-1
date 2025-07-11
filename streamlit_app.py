@@ -1,5 +1,9 @@
 import streamlit as st
 import matplotlib.pyplot as plt
+import matplotlib
+
+# 한글 폰트 설정 (NanumGothic, Malgun Gothic 등 설치 필요)
+matplotlib.rc('font', family='NanumGothic')
 
 def diagnose(RDI, O2):
     결과 = ""
