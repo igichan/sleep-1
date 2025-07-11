@@ -1,3 +1,7 @@
+git add .
+git commit -m "initial commit"
+git push origin main
+
 import streamlit as st
 import matplotlib.pyplot as plt
 
