@@ -94,3 +94,39 @@ if st.button("결과 보기"):
 
     st.markdown("#### O2 슬라이더")
     st.slider("O2 위치", min_value=0.0, max_value=100.0, value=o2, disabled=True)
+    def gradient_bar(min_val, max_val, value, ranges, colors, labels):
+    # 그라데이션 바 (HTML + 숫자 표시)
+    bar_width = 400
+    bar_height = 28
+    marker_pos = int(bar_width * (value-min_val)/(max_val-min_val))
+    gradient = ','.join(colors)
+    # 구간별 숫자 및 라벨
+    stops = ""
+    for i, (start, end) in enumerate(ranges):
+        left = int(bar_width * (start-min_val)/(max_val-min_val))
+        right = int(bar_width * (end-min_val)/(max_val-min_val))
+        mid = (left + right) // 2
+        stops += f"<span style='position:absolute;left:{mid-15}px;top:{bar_height+2}px;color:{colors[i]};font-weight:bold;'>{start}~{end}<br>{labels[i]}</span>"
+    # HTML for gradient bar + marker
+    html = f"""
+    <div style='position:relative;width:{bar_width}px;height:{bar_height+32}px;'>
+      <div style='width:{bar_width}px;height:{bar_height}px;border-radius:8px;background:linear-gradient(to right, {gradient});'></div>
+      <div style='position:absolute;left:{marker_pos-8}px;top:0;'><span style='font-size:24px;'>▲</span></div>
+      {stops}
+    </div>
+    """
+    return html
+
+# RDI 위험도 그라데이션
+rdi_ranges = [(0,5),(5,15),(15,30),(30,100)]
+rdi_colors = ['#43a047','#fbc02d','#fb8c00','#e53935']
+rdi_labels = ['정상','경도','중등도','중증']
+st.markdown("##### RDI 위험도 그라데이션")
+st.markdown(gradient_bar(0, 100, rdi, rdi_ranges, rdi_colors, rdi_labels), unsafe_allow_html=True)
+
+# O2 위험도 그라데이션
+o2_ranges = [(0,85),(85,90),(90,95),(95,100)]
+o2_colors = ['#e53935','#fb8c00','#fbc02d','#43a047']
+o2_labels = ['저하','위험','경계','정상']
+st.markdown("##### 산소 위험도 그라데이션")
+st.markdown(gradient_bar(50, 100, o2, o2_ranges, o2_colors, o2_labels), unsafe_allow_html=True)
