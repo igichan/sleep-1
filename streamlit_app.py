@@ -27,14 +27,14 @@ def 진단_등급_텍스트(RDI, O2):
 st.title("🩺 수면무호흡 진단기")
 
 rdi = st.number_input("RDI (수면무호흡지수)", min_value=0.0, max_value=100.0, step=0.1)
-o2 = st.number_input("평균 산소농도 (%)", min_value=50.0, max_value=100.0, step=0.1)
+o2 = st.number_input("평균 혈중산소농도 (%)", min_value=50.0, max_value=100.0, step=0.1)
 
 if st.button("결과 보기"):
     rdi_result, o2_result = 진단_등급_텍스트(rdi, o2)
 
     st.subheader("🔍 진단 결과")
     st.write(f"➡️ 내 RDI: {rdi} → {rdi_result}")
-    st.write(f"➡️ 내 산소농도: {o2}% → {o2_result}")
+    st.write(f"➡️ 내 평균 혈중산소농도: {o2}% → {o2_result}")
 
     st.markdown("---")
     st.markdown("### 🗂️ 기준 구간")
