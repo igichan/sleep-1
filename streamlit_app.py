@@ -117,16 +117,16 @@ if st.button("결과 보기"):
     """
     return html
 
-# RDI 위험도 그라데이션
-rdi_ranges = [(0,5),(5,15),(15,30),(30,100)]
-rdi_colors = ['#43a047','#fbc02d','#fb8c00','#e53935']
-rdi_labels = ['정상','경도','중등도','중증']
-st.markdown("##### RDI 위험도 그라데이션")
-st.markdown(gradient_bar(0, 100, rdi, rdi_ranges, rdi_colors, rdi_labels), unsafe_allow_html=True)
+    # RDI 위험도 그라데이션
+    rdi_ranges = [(0,5),(5,15),(15,30),(30,100)]
+    rdi_colors = ['#43a047','#fbc02d','#fb8c00','#e53935']
+    rdi_labels = ['정상','경도','중등도','중증']
+    st.markdown("##### RDI 위험도 그라데이션")
+    st.markdown(gradient_bar(0, 100, rdi, rdi_ranges, rdi_colors, rdi_labels), unsafe_allow_html=True)
 
-# O2 위험도 그라데이션
-o2_ranges = [(0,85),(85,90),(90,95),(95,100)]
-o2_colors = ['#e53935','#fb8c00','#fbc02d','#43a047']
-o2_labels = ['저하','위험','경계','정상']
-st.markdown("##### 산소 위험도 그라데이션")
-st.markdown(gradient_bar(50, 100, o2, o2_ranges, o2_colors, o2_labels), unsafe_allow_html=True)
+    # O2 위험도 그라데이션
+    o2_ranges = [(0,85),(85,90),(90,95),(95,100)]
+    o2_colors = ['#e53935','#fb8c00','#fbc02d','#43a047']
+    o2_labels = ['저하','위험','경계','정상']
+    st.markdown("##### 산소 위험도 그라데이션")
+    st.markdown(gradient_bar(50, 100, o2, o2_ranges, o2_colors, o2_labels), unsafe_allow_html=True)
