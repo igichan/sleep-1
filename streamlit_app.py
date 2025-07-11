@@ -51,15 +51,6 @@ if st.button("결과 보기"):
     st.markdown("#### O2 Progress")
     st.progress(int(o2 if o2 <= 100 else 100))
 
-    # 2. 색상 구간 마크다운 선형 표시
-    rdi_bar = (
-        "<span style='color:#43a047'>🟩|</span>" * int(min(rdi,5)) +
-        "<span style='color:#fbc02d'>🟨|</span>" * int(min(max(rdi-5,0),10)) +
-        "<span style='color:#fb8c00'>🟧|</span>" * int(min(max(rdi-15,0),15)) +
-        "<span style='color:#e53935'>🟥|</span>" * int(max(rdi-30,0))
-    )
-    st.markdown(f"RDI Bar: {rdi_bar}", unsafe_allow_html=True)
-
     # 3. HTML 막대 표시
     def color_bar(value, min_val, max_val, colors):
         pct = (value - min_val) / (max_val - min_val)
