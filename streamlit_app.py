@@ -1,9 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 
-# 진단 및 시각화 함수
 def diagnose_and_plot(RDI, O2):
-    # 진단 문장 생성
     result = ""
 
     if RDI < 5:
@@ -57,7 +55,7 @@ def diagnose_and_plot(RDI, O2):
     ax2.legend(loc="upper left")
     st.pyplot(fig2)
 
-# 🖥️ Streamlit UI 구성
+# Streamlit UI
 st.title("수면무호흡 진단 시뮬레이터")
 
 rdi_val = st.number_input("RDI (수면무호흡지수)", min_value=0.0, max_value=100.0, step=0.1)
