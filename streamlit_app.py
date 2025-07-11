@@ -1,13 +1,6 @@
-import tkinter as tk
+import streamlit as st
 
-def diagnose():
-    try:
-        RDI = float(entry_rdi.get().replace(",", "."))
-        O2 = float(entry_o2.get().replace(",", "."))
-    except ValueError:
-        결과창.config(text="숫자만 입력하세요. (예: 17.2 / 91.5)")
-        return
-
+def diagnose(RDI, O2):
     결과 = ""
 
     if RDI < 5:
@@ -30,22 +23,15 @@ def diagnose():
     else:
         결과 += "평균 혈중 산소농도: 매우 낮음 (중증 산소저하 가능성)"
 
-    결과창.config(text=결과)
+    return 결과
 
-root = tk.Tk()
-root.title("수면무호흡증 판별 모의 프로그램")
-root.geometry("360x240")
+# Streamlit 인터페이스
+st.title("수면무호흡증 판별 모의 프로그램")
 
-tk.Label(root, text="RDI (수면무호흡지수)").pack(pady=5)
-entry_rdi = tk.Entry(root)
-entry_rdi.pack()
+rdi = st.number_input("RDI (수면무호흡지수)", min_value=0.0, max_value=100.0, step=0.1, format="%.1f")
+o2 = st.number_input("평균 혈중 산소농도 (%)", min_value=50.0, max_value=100.0, step=0.1, format="%.1f")
 
-tk.Label(root, text="평균 혈중 산소농도 (%)").pack(pady=5)
-entry_o2 = tk.Entry(root)
-entry_o2.pack()
-
-tk.Button(root, text="결과 보기", command=diagnose).pack(pady=10)
-결과창 = tk.Label(root, text="", justify="left")
-결과창.pack()
-
-root.mainloop()
+if st.button("결과 보기"):
+    진단결과 = diagnose(rdi, o2)
+    st.subheader("🔍 진단 결과")
+    st.text(진단결과)
