@@ -81,16 +81,6 @@ if st.button("결과 보기"):
 
     st.markdown("---")
 
-    
-    # 4. 위험도 그라데이션 바 (슬라이더 밑)
-    st.markdown("##### RDI 위험도 그라데이션")
-    st.markdown(gradient_bar(0, 100, rdi, rdi_ranges, rdi_colors, ['정상','경도','중등도','중증']), unsafe_allow_html=True)
-
-    st.markdown("<br><br>", unsafe_allow_html=True)
-
-    st.markdown("##### 산소 위험도 그라데이션")
-    st.markdown(gradient_bar(50, 100, o2, o2_ranges, o2_colors, ['저하','위험','경계','정상']), unsafe_allow_html=True)
-
 
     # 2. 구간별 표
     rdi_table = pd.DataFrame({
@@ -110,3 +100,13 @@ if st.button("결과 보기"):
     st.markdown("#### O2 구간표")
     o2_bounds = [(0,85),(85,90),(90,95),(95,100)]
     st.dataframe(o2_table.style.apply(lambda x: highlight_row(x, o2, *o2_bounds[x.name]), axis=1))
+
+    # 4. 위험도 그라데이션 바 (슬라이더 밑)
+    st.markdown("##### RDI 위험도 그라데이션")
+    st.markdown(gradient_bar(0, 100, rdi, rdi_ranges, rdi_colors, ['정상','경도','중등도','중증']), unsafe_allow_html=True)
+
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
+    st.markdown("##### 산소 위험도 그라데이션")
+    st.markdown(gradient_bar(50, 100, o2, o2_ranges, o2_colors, ['저하','위험','경계','정상']), unsafe_allow_html=True)
+
