@@ -79,6 +79,19 @@ if st.button("결과 보기"):
     st.dataframe(o2_table.style.apply(lambda x: highlight_row(x, o2, *o2_bounds[x.name]), axis=1))
 
     # 2. 위험도 그라데이션 바
+
+    def gradient_bar(min_value, max_value, value, ranges, colors, labels):
+    bar_width = 600  # 기존보다 크게 (예: 300 → 600)
+    # 아래 HTML/CSS에서 width:600px; 처럼 반영
+    html = f'''
+    <div style="width:{bar_width}px; height:30px; ...">
+      <!-- 그라데이션 영역 -->
+    </div>
+    '''
+    # 이하 기타 코드...
+    return html
+
+    
     st.markdown("##### RDI 위험도 그라데이션")
     rdi_ranges = [(0,5),(5,15),(15,30),(30,100)]
     rdi_colors = ['#43a047','#fbc02d','#fb8c00','#e53935']
