@@ -38,7 +38,7 @@ def gradient_bar(min_val, max_val, value, ranges, colors, labels):
     for i, (start, end) in enumerate(ranges):
         left = int(bar_width * (start-min_val)/(max_val-min_val))
         right = int(bar_width * (end-min_val)/(max_val-min_val))
-        
+        mid = 50
         stops += f"<span style='position:absolute;left:{mid-15}px;top:{bar_height+2}px;color:{colors[i]};font-weight:bold;'>{start}~{end}<br>{labels[i]}</span>"
     html = f"""
     <div style='position:relative;width:{bar_width}px;height:{bar_height+32}px;'>
