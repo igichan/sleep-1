@@ -30,7 +30,7 @@ def highlight_row(row, value, start, end):
     return [color]*len(row)
 
 def gradient_bar(min_val, max_val, value, ranges, colors, labels):
-    bar_width = 400
+    bar_width = 900
     bar_height = 30
     marker_pos = int(bar_width * (value-min_val)/(max_val-min_val))
     gradient = ','.join(colors)
