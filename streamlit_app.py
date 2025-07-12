@@ -82,7 +82,7 @@ if st.button("결과 보기"):
     
     st.markdown("##### RDI 위험도 그라데이션")
     rdi_ranges = [(0,5),(5,15),(15,30),(30)]
-    rdi_colors = ['#43a047','#fbc02d','#fb8c00','#e53935','#e53935']
+    rdi_colors = ['#43a047','#fbc02d','#fb8c00','#e53935']
     st.markdown(gradient_bar(0, 100, rdi, rdi_ranges, rdi_colors, ['정상','경도','중등도','중증']), unsafe_allow_html=True)
 
     st.markdown("<br><br>", unsafe_allow_html=True)
