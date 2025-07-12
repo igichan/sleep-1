@@ -49,17 +49,13 @@ def gradient_bar(min_val, max_val, value, ranges, colors, labels):
     """
     return html
 
-st.title("🩺 수면무호흡 진단기")
+st.title("🩺 수면무호흡증 모의 분석")
 
 rdi = st.number_input("RDI (수면무호흡지수)", min_value=0.0, max_value=100.0, step=0.1)
 o2 = st.number_input("평균 혈중산소농도 (%)", min_value=50.0, max_value=100.0, step=0.1)
 
 if st.button("결과 보기"):
     rdi_result, o2_result = 진단_등급_텍스트(rdi, o2)
-
-    st.subheader("🔍 진단 결과")
-    st.write(f"➡️ 내 RDI: {rdi} → {rdi_result}")
-    st.write(f"➡️ 내 평균 혈중산소농도: {o2}% → {o2_result}")
 
     st.markdown("---")
 
