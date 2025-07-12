@@ -1,4 +1,16 @@
 import streamlit as st
+
+col1, col2, col3 = st.columns([1, 6, 1])
+with col2:
+    value = st.slider(
+        '산소 위험도',
+        min_value=0,
+        max_value=85,
+        value=0,
+        step=1
+    )
+
+import streamlit as st
 import pandas as pd
 
 def 진단_등급_텍스트(RDI, O2):
