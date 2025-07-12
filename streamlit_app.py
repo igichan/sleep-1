@@ -79,27 +79,15 @@ if st.button("결과 보기"):
     st.dataframe(o2_table.style.apply(lambda x: highlight_row(x, o2, *o2_bounds[x.name]), axis=1))
 
     # 2. 위험도 그라데이션 바
-
-    def gradient_bar(min_value, max_value, value, ranges, colors, labels):
-    bar_width = 600  # 기존보다 크게 (예: 300 → 600)
-    # 아래 HTML/CSS에서 width:600px; 처럼 반영
-    html = f'''
-    <div style="width:{bar_width}px; height:30px; ...">
-      <!-- 그라데이션 영역 -->
-    </div>
-    '''
-    # 이하 기타 코드...
-    return html
-
     
     st.markdown("##### RDI 위험도 그라데이션")
     rdi_ranges = [(0,5),(5,15),(15,30),(30,100)]
     rdi_colors = ['#43a047','#fbc02d','#fb8c00','#e53935']
-    st.markdown(gradient_bar(0, 100, rdi, rdi_ranges, rdi_colors, ['정상','경도','중등도','중증']), unsafe_allow_html=True)
+    st.markdown(gradient_bar(0, 200, rdi, rdi_ranges, rdi_colors, ['정상','경도','중등도','중증']), unsafe_allow_html=True)
 
     st.markdown("<br><br>", unsafe_allow_html=True)
                 
     st.markdown("##### 혈중산소농도 위험도 그라데이션")
     o2_ranges = [(0,85),(85,90),(90,95),(95,100)]
     o2_colors = ['#e53935','#fb8c00','#fbc02d','#43a047']
-    st.markdown(gradient_bar(0, 100, o2, o2_ranges, o2_colors, ['저하','위험','경계','정상']), unsafe_allow_html=True)
+    st.markdown(gradient_bar(0, 200, o2, o2_ranges, o2_colors, ['저하','위험','경계','정상']), unsafe_allow_html=True)
