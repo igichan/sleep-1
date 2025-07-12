@@ -1,16 +1,4 @@
 import streamlit as st
-
-col1, col2, col3 = st.columns([1, 6, 1])
-with col2:
-    value = st.slider(
-        '산소 위험도',
-        min_value=0,
-        max_value=85,
-        value=0,
-        step=1
-    )
-
-import streamlit as st
 import pandas as pd
 
 def 진단_등급_텍스트(RDI, O2):
@@ -98,7 +86,7 @@ if st.button("결과 보기"):
 
     st.markdown("<br><br>", unsafe_allow_html=True)
                 
-    st.markdown("##### 산소 위험도 그라데이션")
+    st.markdown("##### 혈중산소농도 위험도 그라데이션")
     o2_ranges = [(0,85),(85,90),(90,95),(95,100)]
     o2_colors = ['#e53935','#fb8c00','#fbc02d','#43a047']
-    st.markdown(gradient_bar(50, 100, o2, o2_ranges, o2_colors, ['저하','위험','경계','정상']), unsafe_allow_html=True)
+    st.markdown(gradient_bar(0, 100, o2, o2_ranges, o2_colors, ['저하','위험','경계','정상']), unsafe_allow_html=True)
