@@ -25,39 +25,21 @@ def 진단_등급_텍스트(RDI, O2):
 
     return rdi_등급, o2_등급
 
-def draw_bar(value, ranges, colors, bar_length=40):
-    bar_html = ""
-    marker_pos = 0
-    total = 0
-    for i, (start, end) in enumerate(ranges):
-        seg_len = int((end-start)/(ranges[-1][1]-ranges[0][0]) * bar_length)
-        color = colors[i]
-        if value >= start and value < end:
-            marker_pos = total + int(seg_len * (value-start)/(end-start))
-        bar_html += f"<span style='background:{color};'>{'&nbsp;'*seg_len}</span>"
-        total += seg_len
-    # 마커 찍기 (●)
-    bar_html = bar_html[:marker_pos*6] + "<b>●</b>" + bar_html[marker_pos*6+6:]
-    return bar_html
-
 def highlight_row(row, value, start, end):
     color = 'background-color: #ffd700' if value >= start and value < end else ''
     return [color]*len(row)
 
 def gradient_bar(min_val, max_val, value, ranges, colors, labels):
-    # 그라데이션 바 (HTML + 숫자 표시)
     bar_width = 400
     bar_height = 28
     marker_pos = int(bar_width * (value-min_val)/(max_val-min_val))
     gradient = ','.join(colors)
-    # 구간별 숫자 및 라벨
     stops = ""
     for i, (start, end) in enumerate(ranges):
         left = int(bar_width * (start-min_val)/(max_val-min_val))
         right = int(bar_width * (end-min_val)/(max_val-min_val))
         mid = (left + right) // 2
         stops += f"<span style='position:absolute;left:{mid-15}px;top:{bar_height+2}px;color:{colors[i]};font-weight:bold;'>{start}~{end}<br>{labels[i]}</span>"
-    # HTML for gradient bar + marker
     html = f"""
     <div style='position:relative;width:{bar_width}px;height:{bar_height+32}px;'>
       <div style='width:{bar_width}px;height:{bar_height}px;border-radius:8px;background:linear-gradient(to right, {gradient});'></div>
@@ -81,18 +63,7 @@ if st.button("결과 보기"):
 
     st.markdown("---")
 
-    # 1. 색상 Bar + 마커
-    st.markdown("#### RDI 구간 (시각 막대)")
-    rdi_ranges = [(0,5),(5,15),(15,30),(30,100)]
-    rdi_colors = ['#43a047','#fbc02d','#fb8c00','#e53935']
-    st.markdown(draw_bar(rdi, rdi_ranges, rdi_colors), unsafe_allow_html=True)
-
-    st.markdown("#### O2 구간 (시각 막대)")
-    o2_ranges = [(0,85),(85,90),(90,95),(95,100)]
-    o2_colors = ['#e53935','#fb8c00','#fbc02d','#43a047']
-    st.markdown(draw_bar(o2, o2_ranges, o2_colors), unsafe_allow_html=True)
-
-    # 2. 구간별 표
+    # 1. 구간별 표
     rdi_table = pd.DataFrame({
         '구간': ['0~5', '5~15', '15~30', '30 이상'],
         '등급': ['정상', '경도', '중등도', '중증'],
@@ -111,18 +82,15 @@ if st.button("결과 보기"):
     o2_bounds = [(0,85),(85,90),(90,95),(95,100)]
     st.dataframe(o2_table.style.apply(lambda x: highlight_row(x, o2, *o2_bounds[x.name]), axis=1))
 
-    # 3. 구간별 슬라이더
-    st.markdown("#### RDI 슬라이더")
-    st.slider("RDI 위치", min_value=0.0, max_value=100.0, value=rdi, disabled=True)
-
-    st.markdown("#### O2 슬라이더")
-    st.slider("O2 위치", min_value=50.0, max_value=100.0, value=o2, disabled=True)
-
-    # 4. 위험도 그라데이션 바 (슬라이더 밑)
+    # 2. 위험도 그라데이션 바
     st.markdown("##### RDI 위험도 그라데이션")
+    rdi_ranges = [(0,5),(5,15),(15,30),(30,100)]
+    rdi_colors = ['#43a047','#fbc02d','#fb8c00','#e53935']
     st.markdown(gradient_bar(0, 100, rdi, rdi_ranges, rdi_colors, ['정상','경도','중등도','중증']), unsafe_allow_html=True)
 
     st.markdown("<br><br>", unsafe_allow_html=True)
                 
     st.markdown("##### 산소 위험도 그라데이션")
+    o2_ranges = [(0,85),(85,90),(90,95),(95,100)]
+    o2_colors = ['#e53935','#fb8c00','#fbc02d','#43a047']
     st.markdown(gradient_bar(50, 100, o2, o2_ranges, o2_colors, ['저하','위험','경계','정상']), unsafe_allow_html=True)
